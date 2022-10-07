@@ -145,6 +145,9 @@ func (r *Loki) config(c goja.ConstructorCall) *goja.Object {
 	}
 
 	tenantID := c.Argument(5).String()
+	if tenantID == "undefined" {
+		tenantID = ""
+	}
 
 	initEnv.Logger.Debug(fmt.Sprintf("url=%s timeoutMs=%d protobufRatio=%f cardinalities=%v tenantID=%s", urlString, timeoutMs, protobufRatio, cardinalities, tenantID))
 
@@ -157,10 +160,6 @@ func (r *Loki) config(c goja.ConstructorCall) *goja.Object {
 
 	if u.User.Username() == "" {
 		initEnv.Logger.Warn("Running in multi-tenant-mode. Each VU has its own X-Scope-OrgID")
-	} else {
-		if tenantID == "" {
-			tenantID = u.User.Username()
-		}
 	}
 
 	if len(labels) == 0 {
