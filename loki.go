@@ -176,7 +176,7 @@ func (r *Loki) config(c goja.ConstructorCall) *goja.Object {
 	config := &Config{
 		URL:           *u,
 		UserAgent:     DefaultUserAgent,
-		TenantID:      tenantID,
+		TenantID:      "",
 		Timeout:       time.Duration(timeoutMs) * time.Millisecond,
 		Labels:        labels,
 		ProtobufRatio: protobufRatio,
